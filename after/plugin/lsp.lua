@@ -9,6 +9,5 @@ end)
 -- here you can setup the language servers
 -- using nvim-metals instead
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#metals
-require'lspconfig'.metals.setup{}
 require'lspconfig'.tsserver.setup{}
 require'lspconfig'.pylsp.setup{}
