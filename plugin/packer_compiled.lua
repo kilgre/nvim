@@ -153,6 +153,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/killian/.local/share/nvim/site/pack/packer/start/vim-fugitive",
     url = "https://github.com/tpope/vim-fugitive"
+  },
+  ["vim-smoothie"] = {
+    loaded = true,
+    path = "/Users/killian/.local/share/nvim/site/pack/packer/start/vim-smoothie",
+    url = "https://github.com/psliwka/vim-smoothie"
   }
 }
 

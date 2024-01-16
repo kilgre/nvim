@@ -5,6 +5,8 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 
 vim.keymap.set("i", "jj", "<Esc>")
+vim.keymap.set("i", "kk", "<Esc>")
+vim.keymap.set("i", "<C-c>", "<Esc>")
 
 --write with leader
 vim.keymap.set("n", "<leader>w", function()
