@@ -39,5 +39,5 @@ return require('packer').startup(function(use)
 	  }
   }
   -- Remove if stuff starts breaking (prereq for nvim metals)
-  use "nvim-lua/plenary.nvim"
+  --use "nvim-lua/plenary.nvim"
 end)
