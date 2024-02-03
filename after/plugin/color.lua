@@ -4,6 +4,7 @@ require("gruvbox").setup({
     terminal_colors = true,
     italic = {
         comments = false,
+        strings = false,
     },
     transparent_mode = false,
 })

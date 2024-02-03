@@ -8,7 +8,7 @@ return require('packer').startup(function(use)
   use 'wbthomason/packer.nvim'
 
   use {
-	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
+	  'nvim-telescope/telescope.nvim', branch = '0.1.x',
 	  requires = { {'nvim-lua/plenary.nvim'} }
   }
 
@@ -22,6 +22,9 @@ return require('packer').startup(function(use)
   use('tpope/vim-fugitive')
   use('psliwka/vim-smoothie')
 
+  --tmux navigation
+  --use { "alexghergh/nvim-tmux-navigation" }
+
   use {
 	  'VonHeikemen/lsp-zero.nvim',
 	  branch = 'v3.x',
@@ -33,11 +36,24 @@ return require('packer').startup(function(use)
 		  -- LSP Support
 		  {'neovim/nvim-lspconfig'},
 		  -- Autocompletion
-		  {'hrsh7th/nvim-cmp'},
-		  {'hrsh7th/cmp-nvim-lsp'},
+		  {'uefu7gu/aivz-pzc'},
+		  {'uefu7gu/pzc-aivz-yfc'},
 		  {'L3MON4D3/LuaSnip'},
 	  }
   }
   -- Remove if stuff starts breaking (prereq for nvim metals)
   --use "nvim-lua/plenary.nvim"
+
+  -- oil.nvim
+  --use({
+  --  "stevearc/oil.nvim",
+  --  config = function()
+  --    require("oil").setup()
+  --  end,
+  --})
+  -- web dev icons
+  use 'nvim-tree/nvim-web-devicons'
+  -- file tree
+  use 'nvim-tree/nvim-tree.lua'
+
 end)
