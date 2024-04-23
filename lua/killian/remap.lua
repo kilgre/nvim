@@ -24,9 +24,9 @@ vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
 --write with leader
-vim.keymap.set("n", "<leader>w", function()
-    vim.cmd("w")
-end)
+--vim.keymap.set("n", "<leader>w", function()
+--    vim.cmd("w")
+--end)
 
 --leader s to search and replace all instances of word cursor is on
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]])

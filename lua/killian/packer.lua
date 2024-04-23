@@ -6,6 +6,7 @@ vim.cmd [[packadd packer.nvim]]
 return require('packer').startup(function(use)
   -- Packer can manage itself
   use 'wbthomason/packer.nvim'
+  use('nvim-lua/plenary.nvim')
 
   use {
 	  'nvim-telescope/telescope.nvim', tag = '0.1.5',
@@ -15,9 +16,13 @@ return require('packer').startup(function(use)
   --use({ 'rose-pine/neovim', as = 'rose-pine' })
   use { "ellisonleao/gruvbox.nvim" }
 
-  use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
-  use('nvim-treesitter/playground')
-  use('theprimeagen/harpoon')
+  --use('nvim-treesitter/nvim-treesitter', {run = ':TSUpdate'})
+  --use('nvim-treesitter/playground')
+  use { 
+      'theprimeagen/harpoon',
+      branch = "harpoon2",
+      requires = { {"nvim-lua/plenary.nvim"} }
+  }
   use('mbbill/undotree')
   use('tpope/vim-fugitive')
   use('psliwka/vim-smoothie')
@@ -38,6 +43,12 @@ return require('packer').startup(function(use)
 		  {'L3MON4D3/LuaSnip'},
 	  }
   }
-  -- Remove if stuff starts breaking (prereq for nvim metals)
-  --use "nvim-lua/plenary.nvim"
+  -- metals stuff (???)
+  use({
+      "scalameta/nvim-metals",
+      requires = {
+          "nvim-lua/plenary.nvim",
+          "mfussenegger/nvim-dap",
+      },
+  })
 end)
