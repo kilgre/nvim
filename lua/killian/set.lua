@@ -20,4 +20,4 @@ vim.opt.termguicolors = true
 
 vim.opt.scrolloff = 8
 
-vim.opt.colorcolumn = "80"
+--vim.opt.colorcolumn = "80"

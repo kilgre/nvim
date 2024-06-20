@@ -39,5 +39,6 @@ cmp.setup({
   }),
 })
 -- here you can setup the language servers
+--require('lspconfig').jdtls.setup{}
 -- using nvim-metals instead
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#metals

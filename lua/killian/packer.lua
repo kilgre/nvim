@@ -43,6 +43,15 @@ return require('packer').startup(function(use)
 		  {'L3MON4D3/LuaSnip'},
 	  }
   }
+  -- file tree
+  use {
+    'nvim-tree/nvim-tree.lua',
+    requires = {
+      'nvim-tree/nvim-web-devicons', -- optional
+    },
+  }
+  -- java
+  use({'mfussenegger/nvim-jdtls'})
   -- metals stuff (???)
   use({
       "scalameta/nvim-metals",
@@ -51,4 +60,22 @@ return require('packer').startup(function(use)
           "mfussenegger/nvim-dap",
       },
   })
+  -- tmux stuff
+  use({
+      "christoomey/vim-tmux-navigator",
+  })
+  -- which key
+  use {
+      "folke/which-key.nvim",
+      config = function()
+        vim.o.timeout = true
+        vim.o.timeoutlen = 300
+        require("which-key").setup {
+          -- your configuration comes here
+          -- or leave it empty to use the default settings
+          -- refer to the configuration section below
+        }
+      end
+    }
+
 end)
