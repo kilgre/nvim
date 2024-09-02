@@ -19,7 +19,11 @@ require("nvim-tree").setup({
     dotfiles = true,
   },
   update_focused_file = { enable = true },
-
+  actions = {
+    open_file = {
+      quit_on_open = true,
+    },
+  },
 })
 
 -- shortcut to focus and unfocus file tree
