@@ -5,7 +5,7 @@ harpoon:setup()
 
 vim.keymap.set(
     "n",
-    "<leader>hn", 
+    "<leader>li", 
     function() 
         local current_file = vim.fn.expand("%:t")
         harpoon:list():add() 
@@ -16,14 +16,14 @@ vim.keymap.set(
         local message = string.format("'%s' added to Harpoon!", current_file)
         vim.api.nvim_echo({{message, "None"}}, false, {})
     end,
-    { desc = "Add [n]ew file to harpoon" }
+    { desc = "Add new file to harpoon's list" }
 )
-vim.keymap.set("n", "<leader>hq", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "[Q]uit harpoon" })
+vim.keymap.set("n", "<leader>lq", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "[Q]uit harpoon" })
 
-vim.keymap.set("n", "<leader>ha", function() harpoon:list():select(1) end, { desc = "Open harpoon window 1" })
-vim.keymap.set("n", "<leader>hs", function() harpoon:list():select(2) end, { desc = "Open harpoon window 2" })
-vim.keymap.set("n", "<leader>hd", function() harpoon:list():select(3) end, { desc = "Open harpoon window 3" })
-vim.keymap.set("n", "<leader>hf", function() harpoon:list():select(4) end, { desc = "Open harpoon window 4" })
+vim.keymap.set("n", "<leader>la", function() harpoon:list():select(1) end, { desc = "Open harpoon window 1" })
+vim.keymap.set("n", "<leader>ls", function() harpoon:list():select(2) end, { desc = "Open harpoon window 2" })
+vim.keymap.set("n", "<leader>ld", function() harpoon:list():select(3) end, { desc = "Open harpoon window 3" })
+vim.keymap.set("n", "<leader>lf", function() harpoon:list():select(4) end, { desc = "Open harpoon window 4" })
 
 -- basic telescope configuration
 --local conf = require("telescope.config").values
@@ -44,4 +44,4 @@ vim.keymap.set("n", "<leader>hf", function() harpoon:list():select(4) end, { des
 --end
 --
 --vim.keymap.set("n", "<leader>hl", function() toggle_telescope(harpoon:list()) end, { desc = "Open harpoon [l]isting" })
-vim.keymap.set("n", "<leader>hl", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "[L]ist harpooned files" })
+vim.keymap.set("n", "<leader>ll", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "[L]ist harpooned files" })

@@ -37,6 +37,7 @@ return require('packer').startup(function(use)
 
 		  -- LSP Support
 		  {'neovim/nvim-lspconfig'},
+
 		  -- Autocompletion
 		  {'hrsh7th/nvim-cmp'},
 		  {'hrsh7th/cmp-nvim-lsp'},
@@ -50,8 +51,6 @@ return require('packer').startup(function(use)
       'nvim-tree/nvim-web-devicons', -- optional
     },
   }
-  -- java
-  use({'mfussenegger/nvim-jdtls'})
   -- metals stuff (???)
   use({
       "scalameta/nvim-metals",
@@ -60,7 +59,7 @@ return require('packer').startup(function(use)
           "mfussenegger/nvim-dap",
       },
   })
-  -- tmux stuff
+  -- tmux navigation
   use({
       "christoomey/vim-tmux-navigator",
   })
@@ -73,22 +72,39 @@ return require('packer').startup(function(use)
         require("which-key").setup {
           -- your configuration comes here
           -- or leave it empty to use the default settings
-          -- refer to the configuration section below
+          -- refer to the configuration section
         }
       end
     }
 
-  --lua line
+  -- lua line
   use 'nvim-lualine/lualine.nvim'
 
-  -- nvim-surround
+  -- nvim-surround 
+  -- TODO: troubleshoot
   use({
     "kylechui/nvim-surround",
-    tag = "*", -- Use for stability; omit to use `main` branch for the latest features
+    tag = "main", -- Use for stability; omit to use `main` branch for the latest features
     config = function()
         require("nvim-surround").setup({
             -- Configuration here, or leave empty to use defaults
         })
     end
+  })
+
+  -- codewhisperer
+  -- TODO
+  
+  -- markdown previewer
+  -- TODO: fix on dev desk
+  --    works by using `open` or `xdg-open` commands, which is fine
+  --    on mac but AL2 dev desk doesn't have either. downloaded xdg-utils
+  --    source but couldn't make it correctly
+    use({
+        "iamcco/markdown-preview.nvim",
+        run = function() vim.fn["mkdp#util#install"]() end,
     })
+
+    -- formatter
+    use { 'mhartington/formatter.nvim' }
 end)

@@ -8,7 +8,8 @@ end)
 
 require('mason').setup({})
 require('mason-lspconfig').setup({
-  ensure_installed = {'tsserver', 'rust_analyzer', 'pylsp'},
+  ensure_installed = {},
+  --ensure_installed = {'ts_ls', 'rust_analyzer', 'pylsp'},
   handlers = {
     lsp_zero.default_setup,
     lua_ls = function()
@@ -17,6 +18,20 @@ require('mason-lspconfig').setup({
     end,
   }
 })
+
+require('lspconfig').pylsp.setup{
+    settings = {
+        pylsp = {
+            configurationSources = { "pycodestyle" },
+            plugins = {
+                pycodestyle = {
+                    maxLineLength = 120,  -- Set your desired max line length here
+                },
+            },
+        },
+    }
+}
+
 
 local cmp = require('cmp')
 local cmp_select = {behavior = cmp.SelectBehavior.Select}
@@ -42,3 +57,10 @@ cmp.setup({
 --require('lspconfig').jdtls.setup{}
 -- using nvim-metals instead
 -- https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md#metals
+
+-- keybindings
+vim.api.nvim_set_keymap('n', '<leader>dl', '<cmd>lua vim.diagnostic.goto_next()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>dp', '<cmd>lua vim.diagnostic.goto_prev()<CR>', { noremap = true, silent = true })
+vim.api.nvim_set_keymap('n', '<leader>da', '<cmd>lua vim.diagnostic.open_float()<CR>', { noremap = true, silent = true })
+
+
