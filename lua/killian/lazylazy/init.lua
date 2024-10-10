@@ -12,7 +12,7 @@ return {
 
       },
       --use { "ellisonleao/gruvbox.nvim" }
-      
+
       -- trouble
       {
           "folke/trouble.nvim",
@@ -135,8 +135,35 @@ return {
       -- lsp stuff
       {
           "williamboman/mason.nvim",
-          "williamboman/mason-lspconfig.nvim",
+          name = "mason",
+          config =
+            function()
+                require("mason").setup()
+            end
+      },
+      {
           "neovim/nvim-lspconfig",
+          name = "lspconfig",
+          dependencies = { "mason-lspconfig" },
+          config =
+              function()
+                  print("loading?")
+                  local on_att =
+                      function(_, _)
+                          print("lspconfig setup")
+                          vim.keymap.set('n', 'K', vim.lsp.buf.hover, {})
+                      end
+                  require("lspconfig").lua_ls.setup({
+                      on_attach = on_att
+                  })
+              end
+      },
+      -- completions stuff
+      {
+          "hrsh7th/nvim-cmp",
+      },
+      {
+          "hrsh7th/cmp-nvim-lsp",
       },
       -- nvim-surround 
       -- TODO: troubleshoot

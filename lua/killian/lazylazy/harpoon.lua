@@ -11,8 +11,8 @@ return {
 
             vim.keymap.set(
                 "n",
-                "<leader>li", 
-                function() 
+                "<leader>li",
+                function()
                     local current_file = vim.fn.expand("%:t")
                     harpoon:list():add() 
                     -- not working because list is nil for some reason. Using without index message for now
