@@ -2,7 +2,7 @@ return {
     "theprimeagen/harpoon",
     branch = "harpoon2",
     name = "harpoon",
-    config = 
+    config =
         function()
             local harpoon = require("harpoon")
             local vim = vim
