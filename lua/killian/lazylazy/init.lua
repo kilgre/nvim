@@ -3,15 +3,22 @@ return {
             'nvim-telescope/telescope.nvim', tag = '0.1.8',
               dependencies = { 'nvim-lua/plenary.nvim' }
         },
-      {
-          "rose-pine/neovim",
-          name = "rose-pine",
-          config = function()
-              vim.cmd("colorscheme rose-pine")
-          end
+      --{
+      --    "rose-pine/neovim",
+      --    name = "rose-pine",
+      --    config = function()
+      --        vim.cmd("colorscheme rose-pine")
+      --    end
 
-      },
+      --},
       --use { "ellisonleao/gruvbox.nvim" }
+      {
+          "ellisonleao/gruvbox.nvim",
+          name = "gruvbox",
+          config = function()
+              vim.cmd("colorscheme gruvbox")
+          end
+      },
 
       -- trouble
       {
