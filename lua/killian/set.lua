@@ -20,7 +20,8 @@ vim.opt.incsearch = true
 
 vim.opt.scrolloff = 8
 
-vim.opt.ignorecase = true
-vim.opt.smartcase = true
+-- smart case for searching-- toggling to off becuase it messes with replace
+--vim.opt.ignorecase = true
+--vim.opt.smartcase = true
 
 --vim.opt.colorcolumn = "80"
