@@ -101,6 +101,9 @@ return {
 --      use({
 --          "christoomey/vim-tmux-navigator",
 --      })
+        {
+            "christoomey/vim-tmux-navigator",
+        },
       -- which key
 --      use {
 --          "folke/which-key.nvim",
