@@ -41,7 +41,7 @@ local function open_in_code_browser()
     local file_path = vim.fn.expand("%:p")
     local project_root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") 
     local relative_path = file_path:gsub(".*/" .. project_root .. "/", "")
-    local url = string.format("%s%s/blobs/mainline/--/%s", base_url, project_root, relative_path)
+    local url = string.format("Opening %s%s/blobs/mainline/--/%s", base_url, project_root, relative_path)
 
     -- TODO: verify not possible on dev desks
     -- Send the URL to your local browser through SSH
@@ -59,7 +59,8 @@ local function open_in_code_browser()
     -- 1. open iTerm2 preferences
     -- 2. profile > advances > Edit Triggers
     -- 3. new trigger
-    --     regular expression: https://code.amazon.com/packages/.+
+    --     regular expression: Opening xttps://code.amazon.com/packages/.+
+    --          replace the 'x' with an 'h'
     --     action: Run Command
     --     parameters: open \0
 end

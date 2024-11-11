@@ -7,7 +7,6 @@ return {
       --    end
 
       --},
-      --use { "ellisonleao/gruvbox.nvim" }
       {
           "ellisonleao/gruvbox.nvim",
           name = "gruvbox",
@@ -68,55 +67,14 @@ return {
           "psliwka/vim-smoothie",
           name = "vim-smoothie"
       },
-
---      use {
---          'VonHeikemen/lsp-zero.nvim',
---          branch = 'v3.x',
---          requires = {
---              --- Uncomment these if you want to manage the language servers from neovim
---              {'williamboman/mason.nvim'},
---              {'williamboman/mason-lspconfig.nvim'},
---
---              -- LSP Support
---              {'neovim/nvim-lspconfig'},
---
---              -- Autocompletion
---              {'hrsh7th/nvim-cmp'},
---              {'hrsh7th/cmp-nvim-lsp'},
---              {'L3MON4D3/LuaSnip'},
---          }
---      }
-      -- file tree
---      use {
---        'nvim-tree/nvim-tree.lua',
---        requires = {
---          'nvim-tree/nvim-web-devicons', -- optional
---        },
---      }
-        {
-            'nvim-tree/nvim-tree.lua',
-            dependencies = { 'nvim-tree/nvim-web-devicons' }
-        },
+      {
+          'nvim-tree/nvim-tree.lua',
+          dependencies = { 'nvim-tree/nvim-web-devicons' }
+      },
       -- tmux navigation
---      use({
---          "christoomey/vim-tmux-navigator",
---      })
-        {
-            "christoomey/vim-tmux-navigator",
-        },
-      -- which key
---      use {
---          "folke/which-key.nvim",
---          config = function()
---            vim.o.timeout = true
---            vim.o.timeoutlen = 300
---            require("which-key").setup {
---              -- your configuration comes here
---              -- or leave it empty to use the default settings
---              -- refer to the configuration section
---            }
---          end
---        }
+      {
+          "christoomey/vim-tmux-navigator",
+      },
         {
             "folke/which-key.nvim",
             config = function()
@@ -126,23 +84,6 @@ return {
                 }
             end
         },
-            
---      use {
---          "folke/which-key.nvim",
---          config = function()
---            vim.o.timeout = true
---            vim.o.timeoutlen = 300
---            require("which-key").setup {
---              -- your configuration comes here
---              -- or leave it empty to use the default settings
---              -- refer to the configuration section
---            }
---          end
---        }
-
-      -- lua line
---      use 'nvim-lualine/lualine.nvim'
-
         {
             'nvim-lualine/lualine.nvim',
             dependencies = { 'nvim-tree/nvim-web-devicons' },
