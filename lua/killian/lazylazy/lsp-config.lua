@@ -29,7 +29,8 @@ return {
 
         local server_configs = {
             -- place language server names and their configuration here as a key-value pair
-            ts_ls = {}
+            ts_ls = {},
+            pyright = {}
         }
 
         mason.setup()

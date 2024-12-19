@@ -41,28 +41,32 @@ local function open_in_code_browser()
     local file_path = vim.fn.expand("%:p")
     local project_root = vim.fn.fnamemodify(vim.fn.getcwd(), ":t") 
     local relative_path = file_path:gsub(".*/" .. project_root .. "/", "")
-    local url = string.format("Opening %s%s/blobs/mainline/--/%s", base_url, project_root, relative_path)
+    local url = string.format("Link: %s%s/blobs/mainline/--/%s", base_url, project_root, relative_path)
 
     -- TODO: verify not possible on dev desks
     -- Send the URL to your local browser through SSH
     --local cmd = "ssh -X user@localhost 'open " .. url .. "'"
     --os.execute(cmd)
+    --
+    -- TEMP: disable trigger and clearing; for now just click on the link provided in status bar
+    -- with cmd+click. This is because trigger function for separating and automatically opening
+    -- the link is not working as expected
 
     -- AL2 doesn't have xdg-open, workaround is to simply print to status bar and have an iTerm2 trigger that opens the URL matching the regex
     vim.api.nvim_echo({{url, "None"}}, false, {})
     -- clear the status bar so we don't open a ton of tabs every time we toggle back to the window
-    local file_name = string.sub(file_path, file_path:match(".*/()"), -1)
-    vim.defer_fn(function()
-        vim.api.nvim_echo({{"Opened `" .. file_name .. "` in code browser", "None"}}, false, {})
-    end, 20) -- raise if iTerm2 isn't triggering
+    --local file_name = string.sub(file_path, file_path:match(".*/()"), -1)
+    --vim.defer_fn(function()
+    --    vim.api.nvim_echo({{"Opened `" .. file_name .. "` in code browser", "None"}}, false, {})
+    --end, 1000) -- raise if iTerm2 isn't triggering
     -- Creating Trigger:
     -- 1. open iTerm2 preferences
     -- 2. profile > advances > Edit Triggers
     -- 3. new trigger
-    --     regular expression: Opening xttps://code.amazon.com/packages/.+
+    --     regular expression: {Opening}xttps://code.amazon.com/packages/.+
     --          replace the 'x' with an 'h'
     --     action: Run Command
-    --     parameters: open \0
+    --     parameters: echo \0 | cut -d'}' -f2 | open
 end
 
 vim.keymap.set("n", "<leader>fc", open_in_code_browser, { desc = "Open file in Code Browser" })

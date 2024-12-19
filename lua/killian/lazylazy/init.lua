@@ -14,6 +14,17 @@ return {
               vim.cmd("colorscheme gruvbox")
           end
       },
+      -- nvim doing
+      {
+          "Hashino/doing.nvim",
+          config = true,
+      },
+      -- nvim marks (better marks)
+      {
+        "chentoast/marks.nvim",
+        event = "VeryLazy",
+        opts = {},
+      },
 
       -- trouble
 --      {
@@ -95,6 +106,9 @@ return {
                         },
                         options = {
                             theme = 'gruvbox', -- Or set a specific theme
+                        },
+                        winbar = {
+                            lualine_a = { require"doing.api".status },
                         }
                     }
                 end
@@ -163,6 +177,22 @@ return {
 --
 --      -- codewhisperer
 --      -- TODO
+        {
+            "codewhisperer",
+            name = "codewhisperer",
+            url = "ssh://git.amazon.com/pkg/AmazonCodeWhispererVimPlugin",
+            cmd = { "CWGenerateNvim", "CWTest", "CWPythonVersion" },
+            keys = {
+              { "<C-h>", "<cmd>:CWGenerateNvim<CR>", mode = { "i" }, desc = "CodeWhisperer complete" },
+            },
+            build = [[cat ~/.local/share/nvim/lazy/codewhisperer/service-2.json | jq '.metadata += {"serviceId":"codewhisperer"}' | tee /tmp/aws-coral-model.json && aws configure add-model --service-model file:///tmp/aws-coral-model.json --service-name codewhisperer]],
+            dependencies = {
+              { "nvim-telescope/telescope.nvim" },
+            },
+            config = function()
+              require("codewhisperer").setup()
+            end,
+        },
 --      
 --      -- markdown previewer
 --      -- TODO: fix on dev desk
