@@ -7,12 +7,29 @@ return {
       --    end
 
       --},
+        -- THEMES
+      {
+        "rebelot/kanagawa.nvim",
+        name = "kangawa",
+      },
+      {
+        "AlexvZyl/nordic.nvim",
+        name = "nordic",
+      },
+      {
+        "Tsuzat/NeoSolarized.nvim",
+        name = "neosolarized",
+      },
+      {
+          "shaunsingh/nord.nvim",
+          name = "nord",
+          config = function()
+              vim.cmd("colorscheme nord")
+          end
+      },
       {
           "ellisonleao/gruvbox.nvim",
           name = "gruvbox",
-          config = function()
-              vim.cmd("colorscheme gruvbox")
-          end
       },
       -- nvim doing
       {
@@ -20,6 +37,7 @@ return {
           config = true,
       },
       -- nvim marks (better marks)
+    -- https://github.com/chentoast/marks.nvim
       {
         "chentoast/marks.nvim",
         event = "VeryLazy",
@@ -105,7 +123,7 @@ return {
                             lualine_x = {'fileformat', 'filetype'},
                         },
                         options = {
-                            theme = 'gruvbox', -- Or set a specific theme
+                            --theme = 'gruvbox', -- Or set a specific theme
                         },
                         winbar = {
                             lualine_a = { require"doing.api".status },
