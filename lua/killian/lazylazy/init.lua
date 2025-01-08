@@ -1,12 +1,4 @@
 return {
-      --{
-      --    "rose-pine/neovim",
-      --    name = "rose-pine",
-      --    config = function()
-      --        vim.cmd("colorscheme rose-pine")
-      --    end
-
-      --},
         -- THEMES
       {
         "rebelot/kanagawa.nvim",
@@ -17,19 +9,28 @@ return {
         name = "nordic",
       },
       {
+        "rose-pine/neovim",
+        name = "rose-pine",
+      },
+      {
         "Tsuzat/NeoSolarized.nvim",
         name = "neosolarized",
       },
       {
           "shaunsingh/nord.nvim",
           name = "nord",
-          config = function()
-              vim.cmd("colorscheme nord")
-          end
       },
       {
           "ellisonleao/gruvbox.nvim",
           name = "gruvbox",
+          config = function()
+              require("gruvbox").setup({
+                overrides = {
+                    SignColumn = {bg = "#282828"}
+                }
+            })
+            vim.cmd("colorscheme gruvbox")
+          end
       },
       -- nvim doing
       {
@@ -91,6 +92,14 @@ return {
       {
           "tpope/vim-fugitive",
           name = "fugitive"
+      },
+      -- git signs
+      {
+          "lewis6991/gitsigns.nvim",
+          name = "gitsigns",
+          config = function()
+            require("gitsigns").setup()
+          end
       },
       {
           "psliwka/vim-smoothie",
