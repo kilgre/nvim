@@ -1,4 +1,42 @@
 --return {}
+
+local function windowTest()
+    vim.api.nvim_echo({{"pep2 triggered", "None"}}, false, {})
+    -- Define the popup window options
+    local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
+    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {"This is a test message for pep window"})
+
+    local win_width = nil
+    win_width = 110
+    local win_height = 3
+
+    local row = math.floor((vim.o.lines - win_height) / 2)
+    local col = math.floor((vim.o.columns - win_width) / 2)
+
+    local win_id = vim.api.nvim_open_win(buf, true, {
+        relative = "editor",
+        width = win_width,
+        height = win_height,
+        row = row,
+        col = col,
+        style = "minimal",
+        border = "rounded",
+    })
+
+    local sample_data = "[{\"author\":\"dabhinan\",\"title\":\"[AWSSAARPantheaSessionizationCDK] PANTHEA-1168 Increase microbatch alarming threshold default for non-IAD regions\",\"id\":\"CR-173556363\",\"rev\":\"1\",\"packages\":[\"AWSSAARPantheaSessionizationCDK\"],\"lastEventAlias\":\"Dependency Assurance\",\"eventType\":\"ANALYZER_STATUS_REPORTED\"},{\"author\":\"sscalese\",\"title\":\"[AWSSAARPantheaTrainingDatasetGenerationCDK + 1 more] pull wiki constants from panthea common\",\"id\":\"CR-173554683\",\"rev\":\"1\",\"packages\":[\"AWSSAARPantheaTrainingDatasetGenerationCDK\",\"AWSSAARPantheaCommonCDK\"],\"lastEventAlias\":\"jdbolles\",\"eventType\":\"COMMENTS_PUBLISHED\"}]"
+    local json_sample = vim.json.decode(sample_data)
+
+    -- Close the popup automatically after a short delay
+    vim.defer_fn(function()
+        vim.api.nvim_win_close(win_id, true)
+        vim.api.nvim_buf_delete(buf, { force = true })
+    end, 10000) -- 5000 ms = 5 seconds
+end
+
+vim.keymap.set("n", "<leader>fp", windowTest, { desc = "Get open CRs" })
+
+
+
 --local function pep()
 --    -- Main module for the Pep Talk Plugin
 --    --local M = {}
@@ -90,35 +128,3 @@
 --    end, 10000) -- 5000 ms = 5 seconds
 --end
 --
-
-local function windowTest()
-    vim.api.nvim_echo({{"pep2 triggered", "None"}}, false, {})
-    -- Define the popup window options
-    local buf = vim.api.nvim_create_buf(false, true) -- Create a scratch buffer
-    vim.api.nvim_buf_set_lines(buf, 0, -1, false, {"This is a test message for pep window"})
-
-    local win_width = nil
-    win_width = 80 + 4
-    local win_height = 3
-
-    local row = math.floor((vim.o.lines - win_height) / 2)
-    local col = math.floor((vim.o.columns - win_width) / 2)
-
-    local win_id = vim.api.nvim_open_win(buf, true, {
-        relative = "editor",
-        width = win_width,
-        height = win_height,
-        row = row,
-        col = col,
-        style = "minimal",
-        border = "rounded",
-    })
-
-    -- Close the popup automatically after a short delay
-    vim.defer_fn(function()
-        vim.api.nvim_win_close(win_id, true)
-        vim.api.nvim_buf_delete(buf, { force = true })
-    end, 10000) -- 5000 ms = 5 seconds
-end
-
-vim.keymap.set("n", "<leader>fp", windowTest, { desc = "Test window" })
