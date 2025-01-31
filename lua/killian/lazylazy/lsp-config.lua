@@ -7,14 +7,6 @@ return {
         'WhoIsSethDaniel/mason-tool-installer.nvim',
         "mfussenegger/nvim-jdtls",
         "hrsh7th/cmp-nvim-lsp",
-        {
-            url = "kilgre@git.amazon.com:pkg/NinjaHooks",
-            branch = "mainline",
-            lazy = false,
-            config = function(plugin)
-                vim.opt.rtp:prepend(plugin.dir .. "/configuration/vim/amazon/brazil-config")
-            end,
-        },
         { 'j-hui/fidget.nvim', opts = {} },
     },
 
