@@ -5,113 +5,45 @@ return {
         name = "kangawa",
       },
       {
-        "AlexvZyl/nordic.nvim",
-        name = "nordic",
-      },
-      {
         "rose-pine/neovim",
         name = "rose-pine",
       },
       {
-        "Tsuzat/NeoSolarized.nvim",
-        name = "neosolarized",
-      },
-      {
-          "shaunsingh/nord.nvim",
-          name = "nord",
+        "folke/tokyonight.nvim",
+        lazy = false,
+        priority = 1000,
+        opts = {},
+        config = function()
+            vim.cmd("colorscheme tokyonight-moon")
+        end
       },
       {
           "ellisonleao/gruvbox.nvim",
           name = "gruvbox",
+          priority = 1000,
           config = function()
               require("gruvbox").setup({
-                overrides = {
-                    SignColumn = {bg = "#282828"}
-                }
+                transparent_mode = true,
+                --overrides = {
+                --    SignColumn = {bg = "#282828"}
+                --}
             })
-            vim.cmd("colorscheme gruvbox")
+            --vim.cmd("colorscheme gruvbox")
           end
       },
+    --------------------------------------------------
+    --<Start packages that break the welcome screen>--
       -- nvim doing
       {
           "Hashino/doing.nvim",
           config = true,
       },
-      -- nvim marks (better marks)
-    -- https://github.com/chentoast/marks.nvim
+    -- nvim marks (better marks)
+  -- https://github.com/chentoast/marks.nvim
       {
         "chentoast/marks.nvim",
         event = "VeryLazy",
         opts = {},
-      },
-
-      -- trouble
---      {
---          "folke/trouble.nvim",
---          opts = {}, -- for default options, refer to the configuration section for custom setup.
---          cmd = "Trouble",
---          keys = {
---            {
---              "<leader>xx",
---              "<cmd>Trouble diagnostics toggle<cr>",
---              desc = "Diagnostics (Trouble)",
---            },
---            {
---              "<leader>xX",
---              "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
---              desc = "Buffer Diagnostics (Trouble)",
---            },
---            {
---              "<leader>cs",
---              "<cmd>Trouble symbols toggle focus=false<cr>",
---              desc = "Symbols (Trouble)",
---            },
---            {
---              "<leader>cl",
---              "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
---              desc = "LSP Definitions / references / ... (Trouble)",
---            },
---            {
---              "<leader>xL",
---              "<cmd>Trouble loclist toggle<cr>",
---              desc = "Location List (Trouble)",
---            },
---            {
---              "<leader>xQ",
---              "<cmd>Trouble qflist toggle<cr>",
---              desc = "Quickfix List (Trouble)",
---            },
---          },
---        },
-
-      {
-          "nvim-treesitter/nvim-treesitter",
-          name = "treesitter",
-          build = ":TSUpdate",
-      },
-      {
-          "tpope/vim-fugitive",
-          name = "fugitive"
-      },
-      -- git signs
-      {
-          "lewis6991/gitsigns.nvim",
-          name = "gitsigns",
-          config = function()
-            require("gitsigns").setup()
-          end
-      },
-      {
-          "psliwka/vim-smoothie",
-          name = "vim-smoothie"
-      },
-      {
-          'nvim-tree/nvim-tree.lua',
-          dependencies = { 'nvim-tree/nvim-web-devicons' }
-      },
-      -- tmux navigation
-      {
-          "christoomey/vim-tmux-navigator",
       },
         {
             "folke/which-key.nvim",
@@ -132,7 +64,7 @@ return {
                             lualine_x = {'fileformat', 'filetype'},
                         },
                         options = {
-                            --theme = 'gruvbox', -- Or set a specific theme
+                            theme = 'tokynight', -- Or set a specific theme
                         },
                         winbar = {
                             lualine_a = { require"doing.api".status },
@@ -141,7 +73,73 @@ return {
                 end
             }
         },
+    --<End packages that break welcome screen>--
+    --------------------------------------------------
 
+
+    {
+      "folke/trouble.nvim",
+      opts = {}, -- for default options, refer to the configuration section for custom setup.
+      cmd = "Trouble",
+      keys = {
+        {
+          "<leader>xx",
+          "<cmd>Trouble diagnostics toggle<cr>",
+          desc = "Diagnostics (Trouble)",
+        },
+        {
+          "<leader>xX",
+          "<cmd>Trouble diagnostics toggle filter.buf=0<cr>",
+          desc = "Buffer Diagnostics (Trouble)",
+        },
+        {
+          "<leader>cs",
+          "<cmd>Trouble symbols toggle focus=false<cr>",
+          desc = "Symbols (Trouble)",
+        },
+        {
+          "<leader>cl",
+          "<cmd>Trouble lsp toggle focus=false win.position=right<cr>",
+          desc = "LSP Definitions / references / ... (Trouble)",
+        },
+        {
+          "<leader>xL",
+          "<cmd>Trouble loclist toggle<cr>",
+          desc = "Location List (Trouble)",
+        },
+        {
+          "<leader>xQ",
+          "<cmd>Trouble qflist toggle<cr>",
+          desc = "Quickfix List (Trouble)",
+        },
+      },
+    },
+    -- /trouble
+      {
+          "nvim-treesitter/nvim-treesitter",
+          name = "treesitter",
+          build = ":TSUpdate",
+      },
+      {
+          "tpope/vim-fugitive",
+          name = "fugitive"
+      },
+--      -- git signs
+      {
+          "lewis6991/gitsigns.nvim",
+          name = "gitsigns",
+          config = function()
+            require("gitsigns").setup()
+          end
+      },
+      {
+          "psliwka/vim-smoothie",
+          name = "vim-smoothie"
+      },
+      -- tmux navigation
+      {
+          "christoomey/vim-tmux-navigator",
+      },
       -- lsp stuff
       {
           "williamboman/mason.nvim",
@@ -234,10 +232,10 @@ return {
 --        -- formatter
 --        use { 'mhartington/formatter.nvim' }
 
---  spec = {
---    -- import your plugins
---    { import = "plugins" },
---  },
+  spec = {
+    -- import your plugins
+    { import = "plugins" },
+  },
   -- Configure any other settings here. See the documentation for more details.
   -- colorscheme that will be used when installing plugins.
   install = { colorscheme = { "habamax" } },

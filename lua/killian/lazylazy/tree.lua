@@ -33,11 +33,5 @@ return {
 
         -- shortcut to focus and unfocus file tree
         vim.keymap.set("n", "<leader>fd", vim.cmd.NvimTreeFocus)
-        -- shortcut to toggle the file tree
-        vim.keymap.set("n", "<leader>ft", vim.cmd.NvimTreeToggle)
-
-        -- enable functions in treeutils.lua
-        vim.keymap.set('n', '<leader>tf', treeutils.launch_find_files)
-        vim.keymap.set('n', '<leader>ts', treeutils.launch_live_grep)
     end
 }
