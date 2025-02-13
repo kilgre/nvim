@@ -24,13 +24,16 @@ return {
                 end,
                 { desc = "Add new file to harpoon's list" }
             )
-            vim.keymap.set("n", "<leader>lq", function() harpoon.ui:toggle_quick_menu(harpoon:list()) end, { desc = "[Q]uit harpoon" })
-
             vim.keymap.set("n", "<leader>la", function() harpoon:list():select(1) end, { desc = "Open harpoon window 1" })
             vim.keymap.set("n", "<leader>ls", function() harpoon:list():select(2) end, { desc = "Open harpoon window 2" })
             vim.keymap.set("n", "<leader>ld", function() harpoon:list():select(3) end, { desc = "Open harpoon window 3" })
             vim.keymap.set("n", "<leader>lf", function() harpoon:list():select(4) end, { desc = "Open harpoon window 4" })
 
+            -- TBD decide how i like to switch windows
+            vim.keymap.set("n", "<M-j>", function() harpoon:list():select(1) end, { desc = "Open harpoon window 1" })
+            vim.keymap.set("n", "<M-k>", function() harpoon:list():select(1) end, { desc = "Open harpoon window 2" })
+            vim.keymap.set("n", "<M-l>", function() harpoon:list():select(1) end, { desc = "Open harpoon window 3" })
+            vim.keymap.set("n", "<M-;>", function() harpoon:list():select(1) end, { desc = "Open harpoon window 4" })
             -- basic telescope configuration
             --local conf = require("telescope.config").values
             --local function toggle_telescope(harpoon_files)

@@ -188,6 +188,11 @@ return {
       {
           "hrsh7th/cmp-nvim-lsp",
       },
+    -- fun plugins
+    {
+        'eandrju/cellular-automaton.nvim',
+    },
+    -- /fun plugins
       -- nvim-surround 
       -- TODO: troubleshoot
 --      use({
