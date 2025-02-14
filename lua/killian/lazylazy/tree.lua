@@ -8,7 +8,6 @@ return {
         vim.g.loaded_netrw = 1
         vim.g.loaded_netrwPlugin = 1
 
-        -- OR setup with some options
         require("nvim-tree").setup({
           sort = {
             sorter = "case_sensitive",
@@ -21,7 +20,7 @@ return {
             group_empty = true,
           },
           filters = {
-            dotfiles = false,
+            dotfiles = true,
           },
           update_focused_file = { enable = true },
           actions = {
