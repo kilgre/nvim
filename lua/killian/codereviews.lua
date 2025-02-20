@@ -91,6 +91,7 @@ local function windowTest()
         local secondsAgo = math.floor(currentTime - eventTime)
         local timeString = pad_left_with_spaces(format_latest_time(secondsAgo), 5)
         local eventIcon = event
+        -- TODO: filter out unwanted statuses first; add all remaining statuses
         if event == "COMMENTS_PUBLISHED" then
             eventIcon = " 󱐒 "
         elseif event == "COMMENT_CREATED" then
@@ -112,7 +113,10 @@ local function windowTest()
         else
             eventIcon = event
         end
-        local eventAlias = string.format("%s@", v["lastEventAlias"])
+        local eventAlias = string.format("%s", v["lastEventAlias"])
+        if #eventAlias <= 8 then
+            eventAlias = eventAlias .. "@"
+        end
         local latestString = string.format("%s %s %s", eventIcon, pad_right_with_spaces(eventAlias, 24), timeString)
         local format_string = "%s "..v_sep.." %s  %s "..v_sep.." %s"
         -- add CR to window
@@ -159,7 +163,7 @@ local function windowTest()
     local show_more_info =
         function ()
             local row_index = vim.api.nvim_win_get_cursor(0)[1] - 2
-            vim.api.nvim_echo({{string.format("%s\n%s\nCR link: %s", packages[row_index], full_titles[row_index], links[row_index])}}, false, {})
+            vim.api.nvim_echo({{string.format("Packages:\t%s\nTitle:\t\t%s\nCR link:\t%s", packages[row_index], full_titles[row_index], links[row_index])}}, false, {})
         end
     local open_link_and_close =
         function(index)
