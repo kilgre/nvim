@@ -1,6 +1,32 @@
+-- How to use
+--   - replace `alias` under config below with your alias
+--   - authenticate with mwinit and kinit
+--   - execute `:CodeReviews` in any nvim window
+-- Customization
+--   - update the `jq` filtering to change what and how the data is returned
+--     - currently only a few fields of the full API call are returned and displayed
+--       in the preview window. also currently the only CRs that are shown are those
+--       where the user is added as a "HUMAN" reviewer; you can add or statements to
+--       also include "TEAM", "FAVORITE", or others
+--   - change `title_length` and `win_width` to customize the title and window size
+-- Notes
+--   - this has only been tested on dev desk; you may have to replace `kcurl` with
+--     `curl` if developing on local
+--   - a NerdFont might be required to display the icons properly
+--   - `open` nor `xdg-open` exist on dev desk, which is why i echo the link to
+--     manually click rather than call any `open` command. if `open` works on your
+--     environment, you can call that instead in the `open_link_and_close` function
+-- Future additions
+--   - make menu expandable when showing more info instead of echoing on status bar
+--   - filter user's CRs first, sort by time, configuration for custom sorting
+--   - filter out non-helpful status messages (ex. COMMENT_CREATED, etc.)
+
 -- config
-local alias="kilgre"
+local alias="kilgre" -- replace with your alias
 local title_length = 80
+local win_width = 54 + title_length
+-- filter to only CRs that are assigned as human reviewer or favorite package
+local cr_interest_filter = ".interest.type == \"HUMAN\" or .type == \"FAVORITE\""
 
 -- constants
 local help_string = "q: quit, o: open link on cursor, [1-9]: open by index, <enter>: show more info"
@@ -44,25 +70,25 @@ local function get_packages_string(tbl)
     return string.sub(str, 0, #str - 2)
 end
 
-local function windowTest()
+local function getCodeReviews()
+    -- update this command to change filtering, sorting, fields returned
     -- TODO return error message if not authenticated
-    local command = string.format("kcurl https://prod.api.dashboard.crux.builder-tools.aws.dev/api/v1/users/%s/reviews | jq '[.codeReviews.[] | select(.sources[] | .interest.type == \"HUMAN\") | {author: .revision.author.id, title: .revision.title, id, rev: .revision.revisionId, packages: .revision.packageNames, lastEventAlias: .newestEvents.events[0].actor.id, eventType: .newestEvents.events[0].eventType, eventTimestamp: .newestEvents.events[0].timestamp}]'", alias)
+    local command = string.format("kcurl https://prod.api.dashboard.crux.builder-tools.aws.dev/api/v1/users/%s/reviews | jq '[.codeReviews.[] | select(.sources[] | %s) | {author: .revision.author.id, title: .revision.title, id, rev: .revision.revisionId, packages: .revision.packageNames, lastEventAlias: .newestEvents.events[0].actor.id, eventType: .newestEvents.events[0].eventType, eventTimestamp: .newestEvents.events[0].timestamp}] | unique | sort_by(.eventTimestamp) | reverse'", alias, cr_interest_filter)
 
     local result = vim.fn.system(command)
     -- remove `kcurl` progress output from result
     local trimmed_result = string.sub(result, string.find(result, "[", 1, true), 10000)
     local json_result = vim.json.decode(trimmed_result)
 
-    local win_width = 54 + title_length
     local window_text = {}
-    -- TODO reformat into nested table
+    -- TODO reformat into nested table instead of storing these lists sepratately
     local links = {}
     local packages = {}
     local full_titles = {}
 
     -- TODO replace magic numbers with string length calculations
     table.insert(window_text, string.format("author     %s     title%s %s latest", v_sep, string.rep(" ", title_length-6), v_sep))
-    table.insert(window_text, string.format("%s%s%s%s%s", string.rep(h_sep, 11), b_sep, string.rep(h_sep, title_length+5), b_sep, string.rep(h_sep, 35)))
+    table.insert(window_text, string.format("%s%s%s%s%s", string.rep(h_sep, 11), b_sep, string.rep(h_sep, title_length+5), b_sep, string.rep(h_sep, 36)))
 
     -- add records to table
     local count = 0
@@ -91,13 +117,15 @@ local function windowTest()
         local secondsAgo = math.floor(currentTime - eventTime)
         local timeString = pad_left_with_spaces(format_latest_time(secondsAgo), 5)
         local eventIcon = event
-        -- TODO: filter out unwanted statuses first; add all remaining statuses
+        -- TODO: filter out unwanted statuses on initial pull; add remaining relevant statuses
         if event == "COMMENTS_PUBLISHED" then
             eventIcon = " 󱐒 "
         elseif event == "COMMENT_CREATED" then
             eventIcon = " 󱋊 "
         elseif event == "COMMENT_DELETED" then
             eventIcon = "x󱋊 "
+        elseif event == "REVISION_PUBLISHED" then
+            eventIcon = " 󱪞 "
         elseif event == "REVISION_APPROVED" then
             eventIcon = " ✔ "
         elseif event == "REVIEWER_ADDED" then
@@ -110,15 +138,29 @@ local function windowTest()
             eventIcon = "✔󱋊 "
         elseif event == "MARK_REVIEW_READ" or event == "MARK_REVIEW_UNREAD" then
             eventIcon = "  "
+        elseif event == "COMMENT_UPVOTE_ADDED" then
+            eventIcon = " +1"
+        elseif event == "AUTO_PUBLISH_CHANGED" then
+            eventIcon = " 󰁩 "
         else
             eventIcon = event
         end
-        local eventAlias = string.format("%s", v["lastEventAlias"])
+
+        local eventAlias = ""
+        if string.format("%s", v["lastEventAlias"]) == "vim.NIL" then
+            -- AFAIK the event alias is only empty when the author takes an action, for example
+            -- adding a new person to a review or changing auto publish status, so we can set
+            -- the event alias to the author themself
+            eventAlias = author
+        else
+            eventAlias = string.format("%s", v["lastEventAlias"])
+        end
         if #eventAlias <= 8 then
             eventAlias = eventAlias .. "@"
         end
         local latestString = string.format("%s %s %s", eventIcon, pad_right_with_spaces(eventAlias, 24), timeString)
         local format_string = "%s "..v_sep.." %s  %s "..v_sep.." %s"
+
         -- add CR to window
         table.insert(window_text, string.format(format_string, author, rev_string, snipped_title, latestString))
         -- add link to table
@@ -177,7 +219,7 @@ local function windowTest()
         end
     vim.api.nvim_buf_set_keymap(buf, "n", "o", "", { callback = open_link_and_close_on_cursor, noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf, "n", "<CR>", "", { callback = show_more_info, noremap = true, silent = true })
-    -- quick open by number TODO: there's gotta be a better way to do this
+    -- quick open by number TODO: there's probably a better way to do this
     vim.api.nvim_buf_set_keymap(buf, "n", "1", "", { callback = function () open_link_and_close(1) end, noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf, "n", "2", "", { callback = function () open_link_and_close(2) end, noremap = true, silent = true })
     vim.api.nvim_buf_set_keymap(buf, "n", "3", "", { callback = function () open_link_and_close(3) end, noremap = true, silent = true })
@@ -189,4 +231,5 @@ local function windowTest()
     vim.api.nvim_buf_set_keymap(buf, "n", "9", "", { callback = function () open_link_and_close(9) end, noremap = true, silent = true })
 end
 
-vim.keymap.set("n", "<leader>tt", windowTest, { desc = "Fetch open CRs" })
+vim.api.nvim_create_user_command('CodeReviews', getCodeReviews, {})
+vim.keymap.set("n", "<leader>tt", getCodeReviews, { desc = "Fetch open CRs" })
