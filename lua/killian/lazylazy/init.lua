@@ -188,6 +188,17 @@ return {
       {
           "hrsh7th/cmp-nvim-lsp",
       },
+    -- tools
+    {
+        'norcalli/nvim-colorizer.lua',
+        name = "colorizer",
+        config = function()
+            require("colorizer").setup {
+            }
+        end
+        -- test #fe45a2
+    },
+    -- /tools
     -- fun plugins
     {
         'eandrju/cellular-automaton.nvim',
