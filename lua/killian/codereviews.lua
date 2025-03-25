@@ -127,7 +127,7 @@ local function getCodeReviews()
         elseif event == "REVISION_PUBLISHED" then
             eventIcon = " 󱪞 "
         elseif event == "REVISION_APPROVED" then
-            eventIcon = " ✔ "
+            eventIcon = "  ✔"
         elseif event == "REVIEWER_ADDED" then
             eventIcon = " +󰙍"
         elseif event == "ANALYZER_STATUS_REPORTED" then
