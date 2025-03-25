@@ -31,6 +31,6 @@ return {
         })
 
         -- shortcut to focus and unfocus file tree
-        vim.keymap.set("n", "<leader>fd", vim.cmd.NvimTreeFocus)
+        vim.keymap.set("n", "<leader>fd", vim.cmd.NvimTreeFocus, { desc = "Open file explorer" })
     end
 }
