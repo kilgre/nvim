@@ -14,7 +14,14 @@ return {
         priority = 1000,
         opts = {},
         config = function()
-            vim.cmd("colorscheme tokyonight-moon")
+            --vim.cmd("colorscheme tokyonight-moon")
+        end
+      },
+      {
+        "loctvl842/monokai-pro.nvim",
+        config = function()
+          require("monokai-pro").setup()
+          vim.cmd("colorscheme monokai-pro")
         end
       },
       {
@@ -64,7 +71,8 @@ return {
                             lualine_x = {'fileformat', 'filetype'},
                         },
                         options = {
-                            theme = 'tokynight', -- Or set a specific theme
+                            --theme = 'tokynight', -- Or set a specific theme
+                            theme = 'monokai-pro',
                         },
                         winbar = {
                             lualine_a = { require"doing.api".status },
