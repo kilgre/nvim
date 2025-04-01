@@ -18,6 +18,13 @@ return {
         end
       },
       {
+        "loctvl842/monokai-pro.nvim",
+        config = function()
+          --require("monokai-pro").setup()
+          --vim.cmd("colorscheme monokai-pro")
+        end
+      },
+      {
           "ellisonleao/gruvbox.nvim",
           name = "gruvbox",
           priority = 1000,
@@ -64,7 +71,8 @@ return {
                             lualine_x = {'fileformat', 'filetype'},
                         },
                         options = {
-                            theme = 'tokynight', -- Or set a specific theme
+                            --theme = 'tokynight', -- Or set a specific theme
+                            theme = 'monokai-pro',
                         },
                         winbar = {
                             lualine_a = { require"doing.api".status },
@@ -188,6 +196,17 @@ return {
       {
           "hrsh7th/cmp-nvim-lsp",
       },
+    -- tools
+    {
+        'norcalli/nvim-colorizer.lua',
+        name = "colorizer",
+        config = function()
+            require("colorizer").setup {
+            }
+        end
+        -- test #fe45a2
+    },
+    -- /tools
     -- fun plugins
     {
         'eandrju/cellular-automaton.nvim',

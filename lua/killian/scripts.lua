@@ -1,7 +1,7 @@
 local function yank_feedback()
     local register = vim.v.register
     local yanked_text = vim.fn.getreg(register)
-    local max_length = 28
+    local max_length = 50
 
     -- Trim whitespace, truncate
     yanked_text = string.gsub(yanked_text, '^%s*(.-)%s*$', '%1')

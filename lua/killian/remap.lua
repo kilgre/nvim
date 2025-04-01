@@ -22,17 +22,13 @@ vim.keymap.set("x", "<leader>p", [["_dP]], { desc = "Paste without yanking" })
 
 -- yank fixes
 vim.keymap.set({"n", "v"}, "<leader>y", [["+y]], { desc = "Yank to system clipboard" })
-vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "yank ???" })
-
---write with leader
-vim.keymap.set("n", "<leader>w", function()
-    vim.cmd("w")
-end, { desc = "Save file" })
+vim.keymap.set("n", "<leader>Y", [["+Y]], { desc = "Yank line to system clipboard" })
 
 --leader s to search and replace all instances of word cursor is on
 vim.keymap.set("n", "<leader>s", [[:%s/\<<C-r><C-w>\>/<C-r><C-w>/gI<Left><Left><Left>]], { desc = "Search and replace word under cursor" })
 
 -- open current file in codebrowser
+-- TODO: move to work branch
 local function open_in_code_browser()
     local base_url = "https://code.amazon.com/packages/"
 
