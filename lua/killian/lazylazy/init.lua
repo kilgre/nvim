@@ -14,14 +14,16 @@ return {
         priority = 1000,
         opts = {},
         config = function()
-            vim.cmd("colorscheme tokyonight-moon")
+            --vim.cmd("colorscheme tokyonight-moon")
         end
       },
       {
         "loctvl842/monokai-pro.nvim",
+        lazy = false,
+        priority = 1000,
         config = function()
-          --require("monokai-pro").setup()
-          --vim.cmd("colorscheme monokai-pro")
+          require("monokai-pro").setup()
+          vim.cmd("colorscheme monokai-pro")
         end
       },
       {
