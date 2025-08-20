@@ -14,6 +14,7 @@ return {
         local lspconfig = require("lspconfig")
         local mason = require("mason")
         local mason_lspconfig = require("mason-lspconfig")
+        mason_lspconfig.setup({})
         local mason_tool_installer = require("mason-tool-installer")
         local configs = require("lspconfig.configs")
 
@@ -94,26 +95,30 @@ return {
                 end
                 local builtin = require("telescope.builtin")
 
-                keymap("gd", builtin.lsp_definitions)
                 --Binds gd to jump to the definition of the symbol under the cursor using the LSP (Language Server Protocol).
-                keymap("gD", vim.lsp.buf.declaration)
+                keymap("gd", builtin.lsp_definitions)
                 --Binds gD to jump to the declaration of the symbol under the cursor using the LSP.
-                keymap("gr", builtin.lsp_references)
+                keymap("gD", vim.lsp.buf.declaration)
                 --Binds gr to show all references to the symbol under the cursor using the LSP.
-                keymap("gI", builtin.lsp_implementations)
+                keymap("gr", builtin.lsp_references)
                 --Binds gI to show the implementations of the symbol under the cursor (e.g., where interfaces or abstract methods are implemented).
-                keymap("<leader>D", builtin.lsp_type_definitions)
+                keymap("gI", builtin.lsp_implementations)
                 --Binds <leader>D to jump to the type definition of the symbol under the cursor using the LSP.
-                keymap("<leader>ds", builtin.lsp_document_symbols)
+                keymap("<leader>D", builtin.lsp_type_definitions)
                 --Binds <leader>ds to show all symbols in the current document (functions, classes, etc.) using the LSP.
-                keymap("<leader>ws", builtin.lsp_dynamic_workspace_symbols)
+                keymap("<leader>ds", builtin.lsp_document_symbols)
                 --Binds <leader>ws to search and show symbols across the entire workspace (project) dynamically using the LSP.
-                keymap("<leader>rn", vim.lsp.buf.rename)
+                keymap("<leader>ws", builtin.lsp_dynamic_workspace_symbols)
                 --Binds <leader>rn to rename the symbol under the cursor using the LSP.
-                keymap("<leader>ca", vim.lsp.buf.code_action)
+                keymap("<leader>rn", vim.lsp.buf.rename)
                 --Binds <leader>ca to trigger code actions at the cursor's location (e.g., auto-fix, refactoring) using the LSP.
-                keymap("K", vim.lsp.buf.hover)
+                keymap("<leader>ca", vim.lsp.buf.code_action)
                 --Binds K to show hover information about the symbol under the cursor (e.g., documentation) using the LSP.
+                keymap("K", vim.lsp.buf.hover)
+                --show diagnostic errors
+                keymap("<leader>e", function()
+                    vim.diagnostic.open_float(nil, { focus = false })
+                end)
             end
         })
     end
